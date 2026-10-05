@@ -25,16 +25,17 @@ jobs:
           p = Path("project/app/build.gradle.kts")
           s = p.read_text()
 
-          s = s.replace(
-              'dependencies {',
-              '''dependencies {
+          if 'androidx.compose:compose-bom' not in s:
+              s = s.replace(
+                  'dependencies {',
+                  '''dependencies {
               implementation(platform("androidx.compose:compose-bom:2025.02.00"))'''
-          )
+              )
 
           p.write_text(s)
-          print(p.read_text())
           PY
-                - name: Enable AndroidX
+
+      - name: Enable AndroidX
         run: |
           echo "android.useAndroidX=true" >> project/gradle.properties
           echo "android.enableJetifier=true" >> project/gradle.properties

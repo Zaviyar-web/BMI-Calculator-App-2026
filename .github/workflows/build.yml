@@ -34,6 +34,10 @@ jobs:
           p.write_text(s)
           print(p.read_text())
           PY
+                - name: Enable AndroidX
+        run: |
+          echo "android.useAndroidX=true" >> project/gradle.properties
+          echo "android.enableJetifier=true" >> project/gradle.properties
 
       - name: Set up Java
         uses: actions/setup-java@v4
